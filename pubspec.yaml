@@ -1,0 +1,19 @@
+name: esv_api
+description: ESV API Client for Dart
+version: 0.1.0
+homepage: https://github.com/tsteward/esv_api_dart
+author: Timothy Steward <tsteward0@gmail.com>
+
+environment:
+  sdk: '>=2.1.0 <3.0.0'
+
+dependencies:
+  json_annotation: ^2.0.0
+  http: ^0.12.0+1
+  meta: ^1.1.7
+
+dev_dependencies:
+  build_runner: ^1.2.8
+  json_serializable: ^2.0.2
+  pedantic: ^1.0.0
+  test: ^1.0.0
