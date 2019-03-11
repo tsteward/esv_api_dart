@@ -79,6 +79,6 @@ class ESVAPI {
     // decode json
     var decoded = jsonDecode(response.body);
 
-    return new PassageTextResponse.fromJson(decoded);
+    return PassageTextResponse.fromJson(decoded);
   }
 }

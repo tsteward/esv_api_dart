@@ -52,7 +52,7 @@ void main() {
 }''';
 
     var expectedResposne =
-        new PassageTextResponse.fromJson(jsonDecode(responseText));
+        PassageTextResponse.fromJson(jsonDecode(responseText));
     var actualResponse = await esvApi.getPassageText('John 11:35');
 
     // compare the response string since there is no equality operator implemented
@@ -61,9 +61,11 @@ void main() {
 
   test('Passing optional parameter changes text', () async {
     var originalResponse = await esvApi.getPassageText('John 11:35');
-    var parameterResponse = await esvApi.getPassageText('John 11:35', include_passage_references: false);
+    var parameterResponse = await esvApi.getPassageText('John 11:35',
+        include_passage_references: false);
 
     // compare passage text
-    expect(originalResponse.passages.first, isNot(equals(parameterResponse.passages.first)));
+    expect(originalResponse.passages.first,
+        isNot(equals(parameterResponse.passages.first)));
   });
 }
