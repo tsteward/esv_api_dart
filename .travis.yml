@@ -24,7 +24,7 @@ jobs:
       dart_task:
         dartfmt: -n . --fix --set-exit-if-changed
     - stage: deploy
-      if: (tag =~ ^v) AND (branch = master)
+      if: tag =~ ^v
       before_deploy:
         - sed -i -e 's/*.g.dart/# *.g.dart/g' .gitignore # comment out line to ignore generated file, since we want to publish those
         - chmod +x ./.travis/publish.sh # giving execution permissions to this file to avoid error 127.
