@@ -1,0 +1,38 @@
+language: dart
+cache:
+  directories:
+    - $HOME/.pub-cache
+env:
+  global:
+    secure: whJpoSvfaPBIP+FRTcltasy/oagLOi/t9yTS8+vucQru7mahgxx9pKMYUuZnG/FYlWhNzfLn57E08+nWsBdoiKNp+v/YecnpFYKazAqVZA06GkYzrIBlS7bEVtpGWdv7DyALpZd6LMVhyiZbSSr2FshrKQm5T01Spm5RBF/s6p8lBc3T8I7AdQfevJgd1SNwNofLp7uLlbLk5WEZTkZiC8XNpxezm7OmcYgFpAyYjuezeHGWeOoDoKKz50imgHcqk4hbLNmNwatxdzbPuG1Gxu6ibr6I4xhojiCIrzub/2KdgRKelofxy/LqeA6dU9VYZTXA87shZAGOXC/gcYzwlVBCFMt3QYoEKHgpXhuaIZbBMzcw9UDfLs5MqcUNh6K1ZQXh5D1AGpUUONuNjjqDnl2Pa3LOPNm4XloPL2UOOr3YY+E7THHqMPSI7Vxv7YIOU6pW4TGYe0UioLjmLFxS27FDesfBTotSv9KdDkrMep6pzePw/fn3NYva0G4VzBFTqLaXrOV7lBrc9uW4ED5yTZJNm/7Tslrdv0hFoTNFeuG0ZkWUjC4HOlca1r7xMgQL2G05XG4TTmovBL4Fc87HtkA65LC5hnk9h8DIvMJvD9cruMTmDCgytvXoTEEacplXRpXnn9TP9ubkIp9xQAH1WUFYnWezUR4RDt5+z+4yCdg=
+before_script: pub run build_runner build
+jobs:
+  include:
+    - stage: test
+      name: 'Test VM'
+      before_install: echo $APIKEY > test/api_key.dart
+      dart_task:
+        test: --platform vm
+    - name: 'Test Browser'
+      before_install: echo $APIKEY > test/api_key.dart
+      dart_task:
+        test: --platform chrome
+    - name: 'Analyzer'
+      dart_task:
+        dartanalyzer: --fatal-warnings .
+    - name: 'Formatting'
+      dart_task:
+        dartfmt: -n . --fix --set-exit-if-changed
+    - stage: deploy
+      if: (tag =~ ^v) AND (branch = master)
+      before_deploy:
+        - sed -i -e 's/*.g.dart/# *.g.dart/g' .gitignore # comment out line to ignore generated file, since we want to publish those
+        - chmod +x ./.travis/publish.sh # giving execution permissions to this file to avoid error 127.
+        - mv ./.travis ../ # moving this out the publication folder as we don't want to publish it.
+      script: ''
+      deploy:
+        provider: script
+        skip_cleanup: true
+        script: '../.travis/publish.sh'
+        on:
+          tags: true

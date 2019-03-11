@@ -1,6 +1,7 @@
 # ESV API Client for Dart
 
 [![pub package](https://img.shields.io/pub/v/esv_api.svg)](https://pub.dartlang.org/packages/esv_api)
+[![travis-ci](https://api.travis-ci.org/tsteward/esv_api_dart.svg?branch=master)](https://travis-ci.org/tsteward/esv_api_dart)
 
 A Dart client for the ESV API from Crossway. Can be used to download scripture
 from the ESV Bible. Documentation of the API and more details can be found at

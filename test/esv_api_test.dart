@@ -3,9 +3,10 @@ import 'dart:convert';
 import 'package:esv_api/esv_api.dart';
 import 'package:test/test.dart';
 
+import 'api_key.dart';
+
 void main() {
-  var apiKey = 'Insert API Key Here';
-  var esvApi = new ESVAPI(apiKey);
+  var esvApi = ESVAPI(apiKey);
 
   test('Calling getPassageText with null exception expected', () {
     expect(() async => await esvApi.getPassageText(null), throwsException);
