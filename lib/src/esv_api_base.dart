@@ -5,6 +5,7 @@ import 'package:http/http.dart' as http;
 
 import 'passage_text_response.dart';
 
+/// An iterface for making calls to the ESV API.
 class ESVAPI {
   static const _urlAuthority = 'api.esv.org';
   static const _urlPath = '/v3/passage/text/';
@@ -15,6 +16,9 @@ class ESVAPI {
     _apiKey = apiKey;
   }
 
+  /// Makes a call to the passage text endpoint. See
+  /// [documentation](https://api.esv.org/docs/passage-text/) for
+  /// detailed descriptions of each parameter and the response.
   Future<PassageTextResponse> getPassageText(String verse,
       {bool include_passage_references,
       bool include_verse_numbers,

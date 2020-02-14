@@ -7,6 +7,9 @@ import 'passage_meta.dart';
 
 part 'passage_text_response.g.dart';
 
+/// Response to the passage text endpoint. See
+/// [documentation](https://api.esv.org/docs/passage-text/) for a
+/// detailed description.
 @immutable
 @JsonSerializable()
 class PassageTextResponse {
